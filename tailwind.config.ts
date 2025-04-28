@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,19 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+                marshmallow: {
+                    50: '#FFF5F7',
+                    100: '#FFDEE2',
+                    200: '#FDE1D3',
+                    300: '#FFC7D1',
+                    400: '#FFA9BA',
+                    500: '#FF8BA2',
+                    600: '#FF6987',
+                    700: '#FF4975',
+                    800: '#FF2261',
+                    900: '#FF1453',
+                },
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,12 +97,24 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+                'float': {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-10px)' },
+                }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+                'float': 'float 6s ease-in-out infinite',
+			},
+            fontFamily: {
+                'playfair': ['Playfair Display', 'serif'],
+                'lato': ['Lato', 'sans-serif'],
+            },
+            backgroundImage: {
+                'marshmallow-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFC7D1' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+            }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
