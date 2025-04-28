@@ -1,4 +1,3 @@
-
 import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,31 +7,43 @@ import { useToast } from "@/components/ui/use-toast";
 import ConfirmationModal from "./ConfirmationModal";
 import { Phone, User, MessageSquare } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const ContactForm = () => {
   const { t } = useLanguage();
   const { toast } = useToast();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [products, setProducts] = useState("");
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const products = [
+    { id: "vanilla", name: "Classic Vanilla Bean" },
+    { id: "strawberry", name: "Strawberry Bliss" },
+    { id: "chocolate", name: "Chocolate Swirl" },
+    { id: "raspberry", name: "Raspberry Delight" },
+  ];
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate form submission
     setTimeout(() => {
       setIsLoading(false);
       setShowModal(true);
       
-      // Log the form data to console
       console.log({
         name,
         phone,
-        products,
+        selectedProducts,
         message
       });
       
@@ -42,7 +53,7 @@ const ContactForm = () => {
   const resetForm = () => {
     setName("");
     setPhone("");
-    setProducts("");
+    setSelectedProducts([]);
     setMessage("");
     setShowModal(false);
   };
@@ -52,7 +63,7 @@ const ContactForm = () => {
       <div className="bg-white rounded-xl shadow-lg">
         <div className="p-8">
           <form onSubmit={handleSubmit}>
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div>
                 <Label htmlFor="name" className="text-gray-700 flex items-center gap-2">
                   <User className="h-4 w-4" />
@@ -85,18 +96,24 @@ const ContactForm = () => {
               </div>
               
               <div>
-                <Label htmlFor="products" className="text-gray-700 flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4" />
-                  {t('contact.products')}
+                <Label htmlFor="products" className="text-gray-700">
+                  {t('products.select')}
                 </Label>
-                <Input
-                  id="products"
-                  value={products}
-                  onChange={(e) => setProducts(e.target.value)}
-                  className="mt-1"
-                  placeholder={t('contact.products')}
-                  required
-                />
+                <Select
+                  value={selectedProducts.join(',')}
+                  onValueChange={(value) => setSelectedProducts(value.split(',').filter(Boolean))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('products.select')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {products.map((product) => (
+                      <SelectItem key={product.id} value={product.id}>
+                        {product.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               
               <div>

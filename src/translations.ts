@@ -1,4 +1,3 @@
-
 export const translations = {
   en: {
     "home": "Home",
@@ -37,7 +36,14 @@ export const translations = {
     "modal.thanks": "Thank You!",
     "modal.message": "Your message has been sent.",
     "modal.confirmation": "Hi {name}, we've received your message and will get back to you shortly. Thank you for your interest in our marshmallows!",
-    "modal.close": "Close"
+    "modal.close": "Close",
+    "prices.title": "Our Prices",
+    "prices.small": "200g Package",
+    "prices.medium": "400g Package",
+    "prices.large": "1kg Package",
+    "prices.business": "For larger or business orders, please contact us",
+    "products.select": "Select products (optional)",
+    "prices.currency": "PLN"
   },
   pl: {
     "home": "Strona główna",
@@ -76,7 +82,14 @@ export const translations = {
     "modal.thanks": "Dziękujemy!",
     "modal.message": "Twoja wiadomość została wysłana.",
     "modal.confirmation": "Cześć {name}, otrzymaliśmy Twoją wiadomość i wkrótce się z Tobą skontaktujemy. Dziękujemy za zainteresowanie naszymi piankami!",
-    "modal.close": "Zamknij"
+    "modal.close": "Zamknij",
+    "prices.title": "Nasze Ceny",
+    "prices.small": "Opakowanie 200g",
+    "prices.medium": "Opakowanie 400g",
+    "prices.large": "Opakowanie 1kg",
+    "prices.business": "W przypadku większych zamówień lub zamówień biznesowych prosimy o kontakt",
+    "products.select": "Wybierz produkty (opcjonalnie)",
+    "prices.currency": "zł"
   },
   uk: {
     "home": "Головна",
@@ -115,7 +128,14 @@ export const translations = {
     "modal.thanks": "Дякуємо!",
     "modal.message": "Ваше повідомлення надіслано.",
     "modal.confirmation": "Привіт {name}, ми отримали ваше повідомлення і незабаром зв'яжемося з вами. Дякуємо за інтерес до наших маршмелоу!",
-    "modal.close": "Закрити"
+    "modal.close": "Закрити",
+    "prices.title": "Наші Ціни",
+    "prices.small": "Упаковка 200г",
+    "prices.medium": "Упаковка 400г",
+    "prices.large": "Упаковка 1кг",
+    "prices.business": "Для більших або бізнес-замовлень, будь ласка, зв'яжіться з нами",
+    "products.select": "Виберіть продукти (необов'язково)",
+    "prices.currency": "зл"
   },
   be: {
     "home": "Галоўная",
@@ -154,6 +174,13 @@ export const translations = {
     "modal.thanks": "Дзякуй!",
     "modal.message": "Вашае паведамленне адпраўлена.",
     "modal.confirmation": "Прывітанне {name}, мы атрымалі вашае паведамленне і неўзабаве звяжамся з вамі. Дзякуй за цікавасць да нашых маршмэлоў!",
-    "modal.close": "Зачыніць"
+    "modal.close": "Зачыніць",
+    "prices.title": "Нашы Цэны",
+    "prices.small": "Упакоўка 200г",
+    "prices.medium": "Упакоўка 400г",
+    "prices.large": "Упакоўка 1кг",
+    "prices.business": "Для буйных або бізнес-заказаў, калі ласка, звяжыцеся з намі",
+    "products.select": "Выберыце прадукты (неабавязкова)",
+    "prices.currency": "зл"
   }
 };

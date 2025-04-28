@@ -13,8 +13,8 @@ const LanguageSelector = () => {
   const { currentLanguage, setLanguage } = useLanguage();
   
   const languages = [
-    { code: "en", name: "English", flag: "🇬🇧" },
     { code: "pl", name: "Polski", flag: "🇵🇱" },
+    { code: "en", name: "English", flag: "🇬🇧" },
     { code: "uk", name: "Українська", flag: "🇺🇦" },
     { code: "be", name: "Беларуская", flag: "🇧🇾" },
   ];
@@ -22,7 +22,10 @@ const LanguageSelector = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2 py-1 px-2">
+        <Button 
+          variant="outline" 
+          className="flex items-center gap-2 py-1 px-3 border-2 border-marshmallow-300 hover:bg-marshmallow-50"
+        >
           <span className="text-lg">{languages.find(lang => lang.code === currentLanguage)?.flag}</span>
           <span className="hidden sm:inline">{languages.find(lang => lang.code === currentLanguage)?.name}</span>
         </Button>
