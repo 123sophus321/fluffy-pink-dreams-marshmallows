@@ -1,7 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/useLanguage";
 import ImageCarousel from "./ImageCarousel";
+import { productImages } from "@/data/images/products";
 
 interface Product {
   id: number;
@@ -16,40 +16,28 @@ const products: Product[] = [
     id: 1,
     name: "Classic Vanilla Bean",
     description: "Our signature marshmallows with real vanilla bean specks throughout for an authentic flavor.",
-    images: [
-      "https://images.unsplash.com/photo-1578270339785-67307a9174b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80",
-      "https://images.unsplash.com/photo-1599785209707-a456fc1337bb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-    ],
+    images: productImages.vanilla,
     flavor: "Vanilla"
   },
   {
     id: 2,
     name: "Strawberry Bliss",
     description: "Soft pink marshmallows infused with real strawberries for a fruity delight.",
-    images: [
-      "https://images.unsplash.com/photo-1516747149083-14902f1f662e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-      "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-    ],
+    images: productImages.strawberry,
     flavor: "Strawberry"
   },
   {
     id: 3,
     name: "Chocolate Swirl",
     description: "Vanilla marshmallows with rich chocolate swirls throughout, perfect for hot chocolate.",
-    images: [
-      "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-      "https://images.unsplash.com/photo-1574085733277-851d9d856a3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-    ],
+    images: productImages.chocolate,
     flavor: "Chocolate"
   },
   {
     id: 4,
     name: "Raspberry Delight",
     description: "Delicate marshmallows with tangy raspberry flavor and a beautiful deep pink hue.",
-    images: [
-      "https://images.unsplash.com/photo-1637326502587-4b85cd07451d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
-      "https://images.unsplash.com/photo-1582562124811-c09040d0a901?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-    ],
+    images: productImages.raspberry,
     flavor: "Raspberry"
   }
 ];

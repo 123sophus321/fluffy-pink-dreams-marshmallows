@@ -1,12 +1,6 @@
-
 import { useLanguage } from "@/hooks/useLanguage";
 import ImageCarousel from "./ImageCarousel";
-
-const aboutImages = [
-  "https://images.unsplash.com/photo-1574085733277-851d9d856a3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  "https://images.unsplash.com/photo-1637326502587-4b85cd07451d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
-  "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-];
+import { aboutImages } from "@/data/images/about/carousel";
 
 const AboutSection = () => {
   const { t } = useLanguage();
