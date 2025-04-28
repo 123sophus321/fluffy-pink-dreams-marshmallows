@@ -16,6 +16,8 @@ interface ImageCarouselProps {
 }
 
 const ImageCarousel = ({ images, className, imageClassName, autoPlay = true }: ImageCarouselProps) => {
+  const showNavigation = images.length > 1;
+
   return (
     <Carousel
       className={cn("w-full", className)}
@@ -39,8 +41,12 @@ const ImageCarousel = ({ images, className, imageClassName, autoPlay = true }: I
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-2" />
-      <CarouselNext className="right-2" />
+      {showNavigation && (
+        <>
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
+        </>
+      )}
     </Carousel>
   );
 };
