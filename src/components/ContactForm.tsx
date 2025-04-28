@@ -7,8 +7,10 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import ConfirmationModal from "./ConfirmationModal";
 import { Phone, User, MessageSquare } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const ContactForm = () => {
+  const { t } = useLanguage();
   const { toast } = useToast();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -54,14 +56,14 @@ const ContactForm = () => {
               <div>
                 <Label htmlFor="name" className="text-gray-700 flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  Your Name
+                  {t('contact.name')}
                 </Label>
                 <Input
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="mt-1"
-                  placeholder="Enter your name"
+                  placeholder={t('contact.name')}
                   required
                 />
               </div>
@@ -69,7 +71,7 @@ const ContactForm = () => {
               <div>
                 <Label htmlFor="phone" className="text-gray-700 flex items-center gap-2">
                   <Phone className="h-4 w-4" />
-                  Phone Number
+                  {t('contact.phone')}
                 </Label>
                 <Input
                   id="phone"
@@ -77,7 +79,7 @@ const ContactForm = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="mt-1"
-                  placeholder="Enter your phone number"
+                  placeholder={t('contact.phone')}
                   required
                 />
               </div>
@@ -85,26 +87,26 @@ const ContactForm = () => {
               <div>
                 <Label htmlFor="products" className="text-gray-700 flex items-center gap-2">
                   <MessageSquare className="h-4 w-4" />
-                  Desired Products
+                  {t('contact.products')}
                 </Label>
                 <Input
                   id="products"
                   value={products}
                   onChange={(e) => setProducts(e.target.value)}
                   className="mt-1"
-                  placeholder="What marshmallows are you interested in?"
+                  placeholder={t('contact.products')}
                   required
                 />
               </div>
               
               <div>
-                <Label htmlFor="message" className="text-gray-700">Additional Information (Optional)</Label>
+                <Label htmlFor="message" className="text-gray-700">{t('contact.message')}</Label>
                 <Textarea
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="mt-1"
-                  placeholder="Any questions or special requests?"
+                  placeholder={t('contact.message')}
                   rows={4}
                 />
               </div>
@@ -114,7 +116,7 @@ const ContactForm = () => {
                 className="w-full btn-primary"
                 disabled={isLoading}
               >
-                {isLoading ? "Sending..." : "Send Message"}
+                {isLoading ? t('contact.sending') : t('contact.send')}
               </Button>
             </div>
           </form>

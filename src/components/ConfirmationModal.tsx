@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -8,6 +9,8 @@ interface ConfirmationModalProps {
 }
 
 const ConfirmationModal = ({ isOpen, onClose, name }: ConfirmationModalProps) => {
+  const { t } = useLanguage();
+  
   if (!isOpen) return null;
 
   return (
@@ -19,20 +22,20 @@ const ConfirmationModal = ({ isOpen, onClose, name }: ConfirmationModalProps) =>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 className="text-2xl font-bold text-center mb-1">Thank You!</h3>
-          <p className="text-center text-gray-500 mb-0">Your message has been sent.</p>
+          <h3 className="text-2xl font-bold text-center mb-1">{t('modal.thanks')}</h3>
+          <p className="text-center text-gray-500 mb-0">{t('modal.message')}</p>
         </div>
         
         <div className="p-6">
           <p className="mb-6 text-center">
-            Hi <span className="font-bold">{name}</span>, we've received your message and will get back to you shortly. Thank you for your interest in our marshmallows!
+            {t('modal.confirmation').replace('{name}', name)}
           </p>
           
           <Button 
             onClick={onClose}
             className="w-full btn-primary"
           >
-            Close
+            {t('modal.close')}
           </Button>
         </div>
       </div>

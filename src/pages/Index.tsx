@@ -5,6 +5,7 @@ import AboutSection from "@/components/AboutSection";
 import ProductsSection from "@/components/ProductsSection";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import LanguageSelector from "@/components/LanguageSelector"; 
 
 const Index = () => {
   return (
@@ -14,9 +15,9 @@ const Index = () => {
       <AboutSection />
       <ProductsSection />
       
-      <section id="contact" className="bg-white py-16 md:py-24">
+      <section id="contact" className="bg-white py-16 md:py-20">
         <div className="section-container">
-          <h2 className="section-title">Get in Touch</h2>
+          <h2 className="section-title">Contact & Make an Order</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
