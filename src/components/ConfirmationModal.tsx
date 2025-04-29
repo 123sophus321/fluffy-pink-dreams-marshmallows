@@ -6,9 +6,10 @@ interface ConfirmationModalProps {
   isOpen: boolean;
   onClose: () => void;
   name: string;
+  orderNumber: string;
 }
 
-const ConfirmationModal = ({ isOpen, onClose, name }: ConfirmationModalProps) => {
+const ConfirmationModal = ({ isOpen, onClose, name, orderNumber }: ConfirmationModalProps) => {
   const { t } = useLanguage();
   
   if (!isOpen) return null;
@@ -23,12 +24,15 @@ const ConfirmationModal = ({ isOpen, onClose, name }: ConfirmationModalProps) =>
             </svg>
           </div>
           <h3 className="text-2xl font-bold text-center mb-1">{t('modal.thanks')}</h3>
-          <p className="text-center text-gray-500 mb-0">{t('modal.message')}</p>
+          <p className="text-center text-gray-500 mb-0">{t('modal.order_placed')}</p>
+          <p className="text-center font-medium text-marshmallow-600 mt-2">
+            {t('modal.order_number')}: {orderNumber}
+          </p>
         </div>
         
         <div className="p-6">
           <p className="mb-6 text-center">
-            {t('modal.confirmation').replace('{name}', name)}
+            {t('modal.order_confirmation').replace('{name}', name)}
           </p>
           
           <Button 

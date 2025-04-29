@@ -1,3 +1,4 @@
+
 import { useState, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const ContactForm = () => {
   const { t } = useLanguage();
@@ -24,6 +26,7 @@ const ContactForm = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [orderNumber, setOrderNumber] = useState("");
 
   const products = [
     { id: "vanilla", name: "Classic Vanilla Bean" },
@@ -32,22 +35,87 @@ const ContactForm = () => {
     { id: "raspberry", name: "Raspberry Delight" },
   ];
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const generateOrderNumber = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const randomDigits = Math.floor(10000 + Math.random() * 90000);
+    return `${year}${month}${day}-${randomDigits}`;
+  };
+
+  const sendOrderToTelegram = async (orderData: any, orderNumber: string) => {
+    try {
+      // Format the message text
+      const productNames = orderData.selectedProducts.map((id: string) => 
+        products.find(p => p.id === id)?.name || id
+      ).join(", ");
+      
+      const messageText = `New Order #${orderNumber}:\nName: ${orderData.name}\nPhone: ${orderData.phone}\nProducts: ${productNames}\nAdditional Info: ${orderData.message || "None"}`;
+      
+      // Send to Telegram
+      await fetch('https://api.telegram.org/bot7814366701:AAE-NXMtYMI_0FSGPamwgN_miU24EvNyYIw/sendMessage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "chat_id": "-1002575331808",
+          "text": messageText
+        })
+      });
+      
+      console.log("Order sent to Telegram");
+    } catch (error) {
+      console.error("Failed to send order to Telegram:", error);
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     
-    setTimeout(() => {
-      setIsLoading(false);
+    // Generate order number
+    const newOrderNumber = generateOrderNumber();
+    setOrderNumber(newOrderNumber);
+    
+    // Order data
+    const orderData = {
+      name,
+      phone,
+      selectedProducts,
+      message
+    };
+    
+    try {
+      // Send order to Telegram
+      await sendOrderToTelegram(orderData, newOrderNumber);
+      
+      // Show confirmation
       setShowModal(true);
       
-      console.log({
-        name,
-        phone,
-        selectedProducts,
-        message
+      console.log("Order placed:", {
+        orderNumber: newOrderNumber,
+        ...orderData
       });
-      
-    }, 1500);
+    } catch (error) {
+      console.error("Error processing order:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to place your order. Please try again.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const toggleProductSelection = (productId: string) => {
+    setSelectedProducts(current => 
+      current.includes(productId) 
+        ? current.filter(id => id !== productId) 
+        : [...current, productId]
+    );
   };
 
   const resetForm = () => {
@@ -96,24 +164,26 @@ const ContactForm = () => {
               </div>
               
               <div>
-                <Label htmlFor="products" className="text-gray-700">
+                <Label className="text-gray-700">
                   {t('products.select')}
                 </Label>
-                <Select
-                  value={selectedProducts.join(',')}
-                  onValueChange={(value) => setSelectedProducts(value.split(',').filter(Boolean))}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder={t('products.select')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {products.map((product) => (
-                      <SelectItem key={product.id} value={product.id}>
+                <div className="mt-2 space-y-2">
+                  {products.map((product) => (
+                    <div key={product.id} className="flex items-center space-x-2">
+                      <Checkbox 
+                        id={`product-${product.id}`}
+                        checked={selectedProducts.includes(product.id)}
+                        onCheckedChange={() => toggleProductSelection(product.id)}
+                      />
+                      <label 
+                        htmlFor={`product-${product.id}`}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
                         {product.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                      </label>
+                    </div>
+                  ))}
+                </div>
               </div>
               
               <div>
@@ -133,7 +203,7 @@ const ContactForm = () => {
                 className="w-full btn-primary"
                 disabled={isLoading}
               >
-                {isLoading ? t('contact.sending') : t('contact.send')}
+                {isLoading ? t('contact.sending') : t('contact.order')}
               </Button>
             </div>
           </form>
@@ -144,6 +214,7 @@ const ContactForm = () => {
         isOpen={showModal}
         onClose={resetForm}
         name={name}
+        orderNumber={orderNumber}
       />
     </>
   );

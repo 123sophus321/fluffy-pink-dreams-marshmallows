@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -31,21 +32,9 @@ const Index = () => {
                 </p>
                 
                 <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <h4 className="font-semibold mb-2">{t('contact.hours')}</h4>
-                  <ul className="space-y-2 text-gray-600">
-                    <li className="flex justify-between">
-                      <span>Monday - Friday</span>
-                      <span>9:00 AM - 5:00 PM</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span>Saturday</span>
-                      <span>10:00 AM - 2:00 PM</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span>Sunday</span>
-                      <span>Closed</span>
-                    </li>
-                  </ul>
+                  <div className="text-amber-700 font-medium border-l-4 border-amber-500 pl-3 py-2 bg-amber-50">
+                    <p>{t('contact.rest_note')}</p>
+                  </div>
                 </div>
               </div>
             </div>
