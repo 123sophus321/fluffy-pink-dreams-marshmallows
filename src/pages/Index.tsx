@@ -27,9 +27,9 @@ const Index = () => {
             <p className="text-gray-700">{t('contact.rest_note')}</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             <div>
-              <div className="bg-marshmallow-50 p-6 rounded-xl">
+              <div className="bg-marshmallow-50 p-6 rounded-xl h-full">
                 <h3 className="text-2xl font-bold mb-4">{t('contact.subtitle')}</h3>
                 <p className="text-gray-600">
                   {t('contact.desc')}

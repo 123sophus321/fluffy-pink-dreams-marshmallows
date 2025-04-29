@@ -25,7 +25,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { cn } from "@/lib/utils";
 
 const ContactForm = () => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const { toast } = useToast();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -59,7 +59,7 @@ const ContactForm = () => {
         products.find(p => p.id === id)?.name || id
       ).join(", ");
       
-      const messageText = `New Order #${orderNumber}:\nName: ${orderData.name}\nPhone: ${orderData.phone}\nProducts: ${productNames}\nAdditional Info: ${orderData.message || "None"}`;
+      const messageText = `New Order #${orderNumber}:\nName: ${orderData.name}\nPhone: ${orderData.phone}\nProducts: ${productNames}\nAdditional Info: ${orderData.message || "None"}\nLocale: ${orderData.locale}`;
       
       // Send to Telegram
       await fetch('https://api.telegram.org/bot7814366701:AAE-NXMtYMI_0FSGPamwgN_miU24EvNyYIw/sendMessage', {
@@ -76,6 +76,17 @@ const ContactForm = () => {
       console.log("Order sent to Telegram");
     } catch (error) {
       console.error("Failed to send order to Telegram:", error);
+    }
+  };
+
+  const validatePhone = (value: string) => {
+    return /^\d+$/.test(value) || value === "";
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (validatePhone(value)) {
+      setPhone(value);
     }
   };
 
@@ -102,7 +113,8 @@ const ContactForm = () => {
       name,
       phone,
       selectedProducts,
-      message
+      message,
+      locale: currentLanguage
     };
     
     try {
@@ -174,7 +186,7 @@ const ContactForm = () => {
                   id="phone"
                   type="tel"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={handlePhoneChange}
                   className="mt-1"
                   placeholder={t('contact.phone')}
                   required
@@ -201,7 +213,6 @@ const ContactForm = () => {
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0">
                     <Command>
-                      <CommandInput placeholder="Search products..." />
                       <CommandList>
                         <CommandEmpty>No products found.</CommandEmpty>
                         <CommandGroup>
