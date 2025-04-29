@@ -23,19 +23,17 @@ const Index = () => {
         <div className="section-container">
           <h2 className="section-title">{t('contact.title')}</h2>
           
+          <div className="bg-marshmallow-50 p-4 rounded-lg mb-6 border-l-4 border-marshmallow-300">
+            <p className="text-gray-700">{t('contact.rest_note')}</p>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
               <div className="bg-marshmallow-50 p-6 rounded-xl">
                 <h3 className="text-2xl font-bold mb-4">{t('contact.subtitle')}</h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600">
                   {t('contact.desc')}
                 </p>
-                
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <div className="text-amber-700 font-medium border-l-4 border-amber-500 pl-3 py-2 bg-amber-50">
-                    <p>{t('contact.rest_note')}</p>
-                  </div>
-                </div>
               </div>
             </div>
             

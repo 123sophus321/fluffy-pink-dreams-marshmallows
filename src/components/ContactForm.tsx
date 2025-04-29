@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import ConfirmationModal from "./ConfirmationModal";
-import { Phone, User, MessageSquare } from "lucide-react";
+import { Phone, User, MessageSquare, Check, ChevronsUpDown } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import {
   Select,
@@ -16,6 +16,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 
 const ContactForm = () => {
   const { t } = useLanguage();
@@ -27,6 +34,7 @@ const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
+  const [open, setOpen] = useState(false);
 
   const products = [
     { id: "vanilla", name: "Classic Vanilla Bean" },
@@ -73,6 +81,16 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (selectedProducts.length === 0) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please select at least one product",
+      });
+      return;
+    }
+    
     setIsLoading(true);
     
     // Generate order number
@@ -110,10 +128,10 @@ const ContactForm = () => {
     }
   };
 
-  const toggleProductSelection = (productId: string) => {
+  const toggleProduct = (productId: string) => {
     setSelectedProducts(current => 
-      current.includes(productId) 
-        ? current.filter(id => id !== productId) 
+      current.includes(productId)
+        ? current.filter(id => id !== productId)
         : [...current, productId]
     );
   };
@@ -164,26 +182,55 @@ const ContactForm = () => {
               </div>
               
               <div>
-                <Label className="text-gray-700">
+                <Label className="text-gray-700 mb-2 block">
                   {t('products.select')}
                 </Label>
-                <div className="mt-2 space-y-2">
-                  {products.map((product) => (
-                    <div key={product.id} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`product-${product.id}`}
-                        checked={selectedProducts.includes(product.id)}
-                        onCheckedChange={() => toggleProductSelection(product.id)}
-                      />
-                      <label 
-                        htmlFor={`product-${product.id}`}
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        {product.name}
-                      </label>
-                    </div>
-                  ))}
-                </div>
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={open}
+                      className="w-full justify-between"
+                    >
+                      {selectedProducts.length > 0
+                        ? `${selectedProducts.length} products selected`
+                        : "Select products..."}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command>
+                      <CommandInput placeholder="Search products..." />
+                      <CommandList>
+                        <CommandEmpty>No products found.</CommandEmpty>
+                        <CommandGroup>
+                          {products.map((product) => (
+                            <CommandItem
+                              key={product.id}
+                              onSelect={() => toggleProduct(product.id)}
+                              className="flex items-center gap-2"
+                            >
+                              <div
+                                className={cn(
+                                  "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                                  selectedProducts.includes(product.id)
+                                    ? "bg-primary text-primary-foreground"
+                                    : "opacity-50"
+                                )}
+                              >
+                                {selectedProducts.includes(product.id) && (
+                                  <Check className="h-3 w-3" />
+                                )}
+                              </div>
+                              <span>{product.name}</span>
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
               
               <div>
