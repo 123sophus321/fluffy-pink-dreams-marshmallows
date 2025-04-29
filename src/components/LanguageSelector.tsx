@@ -27,7 +27,6 @@ const LanguageSelector = () => {
           className="flex items-center gap-2 py-1 px-3 border-2 border-marshmallow-300 hover:bg-marshmallow-50"
         >
           <span className="text-lg">{languages.find(lang => lang.code === currentLanguage)?.flag}</span>
-          <span className="text-sm font-medium">{currentLanguage}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
